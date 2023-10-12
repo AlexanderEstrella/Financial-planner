@@ -29,3 +29,56 @@ body {
     font-weight: 800;
     line-height: normal;
 }
+
+
+.Fcontainer {
+    background-color: var(--white);
+    max-width: fit-content;
+    padding-top: 20px;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.datacontainer {
+    width: 199px;
+    height: 308px;
+    border-radius: 13px;
+    border: 1px solid #474D61;
+    background: var(--darkwhite);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.datacontainer, input {
+    min-height: 50px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    border: 1px solid;
+    text-align: center;
+}
+
+.Date {
+    color: #090000;
+    text-align: center;
+     font-family: Inter;
+    font-size: 16px;
+     font-style: normal;
+     font-weight: 800;
+     line-height: normal;
+     padding:10px;
+}
+
+.datacontainer, label {
+    color: #100303;
+        text-align: center;
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+        padding: 10px;
+}

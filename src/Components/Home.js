@@ -1,36 +1,65 @@
 import React, { useState } from "react";
 import moment from "moment";
+
 const Home = () => {
   const [income, setIncome] = useState("");
+  const [bill, setBill] = useState(""); // Add state for bills
+  const [totalSavings, setTotalSavings] = useState(""); // Add state for total savings
 
   let month = moment().format("MMM Do YY");
-  const updatedValue = (value) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(value);
+
+  const formatCurrency = (value) => {
+    const numericValue = parseFloat(value.replace(/[^0-9.]/g, ""));
+    if (isNaN(numericValue)) {
+      return ""; // Return an empty string for non-numeric input// Handle empty input
+    }
+    return "$" + numericValue.toLocaleString("en-US");
   };
 
   const handleIncomeChange = (e) => {
-    setIncome(e.target.value);
+    const inputValue = e.target.value;
+    setIncome(formatCurrency(inputValue));
   };
+
+  const handleBillChange = (e) => {
+    const inputValue = e.target.value;
+    setBill(formatCurrency(inputValue));
+  };
+
+  const handleTotalSavingsChange = (e) => {
+    const inputValue = e.target.value;
+    setTotalSavings(formatCurrency(inputValue));
+  };
+
   return (
     <div className="Fcontainer">
-      <h1 className="Date">{month}</h1>
-      <div>
+      <div className="datacontainer">
+        <h1 className="Date">{month}</h1>
         <label>Net Income:</label>
-        <span>
-          <input
-            type="text"
-            className="dollar"
-            value={income}
-            onChange={handleIncomeChange}
-          ></input>
-        </span>
-      </div>
-      <div>
-        <label>Formatted Income:</label>
-        <span>{updatedValue(income)}</span>
+
+        <input
+          type="text"
+          className="dollar"
+          value={income}
+          onChange={handleIncomeChange}
+          placeholder="Enter Net Income"
+        />
+
+        <input
+          type="text"
+          className="dollarbill"
+          value={bill}
+          onChange={handleBillChange}
+          placeholder="Enter Bill"
+        />
+
+        <input
+          type="text"
+          className="dollartotalsavings"
+          value={totalSavings}
+          onChange={handleTotalSavingsChange}
+          placeholder="Total Savings"
+        />
       </div>
     </div>
   );
