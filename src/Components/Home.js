@@ -3,15 +3,15 @@ import moment from "moment";
 
 const Home = () => {
   const [income, setIncome] = useState("");
-  const [bill, setBill] = useState(""); // Add state for bills
-  const [totalSavings, setTotalSavings] = useState(""); // Add state for total savings
+  const [bills, setBills] = useState([]); // State for bills as an array
+  const [totalSavings, setTotalSavings] = useState("");
 
   let month = moment().format("MMM Do YY");
 
   const formatCurrency = (value) => {
     const numericValue = parseFloat(value.replace(/[^0-9.]/g, ""));
     if (isNaN(numericValue)) {
-      return ""; // Return an empty string for non-numeric input// Handle empty input
+      return "";
     }
     return "$" + numericValue.toLocaleString("en-US");
   };
@@ -21,9 +21,21 @@ const Home = () => {
     setIncome(formatCurrency(inputValue));
   };
 
-  const handleBillChange = (e) => {
+  const handleBillChange = (e, index) => {
     const inputValue = e.target.value;
-    setBill(formatCurrency(inputValue));
+    const updatedBills = [...bills];
+    updatedBills[index] = formatCurrency(inputValue);
+    setBills(updatedBills);
+  };
+
+  const handleDeleteBill = (index) => {
+    const updatedBills = [...bills];
+    updatedBills.splice(index, 1);
+    setBills(updatedBills);
+  };
+
+  const addBill = () => {
+    setBills([...bills, ""]); // Add an empty bill input
   };
 
   const handleTotalSavingsChange = (e) => {
@@ -36,7 +48,6 @@ const Home = () => {
       <div className="datacontainer">
         <h1 className="Date">{month}</h1>
         <label>Net Income:</label>
-
         <input
           type="text"
           className="dollar"
@@ -44,15 +55,24 @@ const Home = () => {
           onChange={handleIncomeChange}
           placeholder="Enter Net Income"
         />
-
-        <input
-          type="text"
-          className="dollarbill"
-          value={bill}
-          onChange={handleBillChange}
-          placeholder="Enter Bill"
-        />
-
+        {bills.map((billValue, index) => (
+          <div key={index} className="bill-input">
+            <input
+              type="text"
+              className="dollarbill"
+              value={billValue}
+              onChange={(e) => handleBillChange(e, index)}
+              placeholder="Enter Bill"
+            />
+            <button
+              className="delete-button"
+              onClick={() => handleDeleteBill(index)}
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+        <button onClick={addBill}>Add Bill</button>
         <input
           type="text"
           className="dollartotalsavings"
