@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 const Home = () => {
   const [income, setIncome] = useState("");
   const [bills, setBills] = useState([]); // State for bills as an array
@@ -64,15 +65,16 @@ const Home = () => {
               onChange={(e) => handleBillChange(e, index)}
               placeholder="Enter Bill"
             />
-            <button
-              className="delete-button"
+            <FontAwesomeIcon
+              icon={faDeleteLeft}
+              className="fa-lg text-danger"
               onClick={() => handleDeleteBill(index)}
-            >
-              Delete
-            </button>
+            />
           </div>
         ))}
-        <button onClick={addBill}>Add Bill</button>
+        <button className="Addbutton" onClick={addBill}>
+          Add a bill
+        </button>
         <input
           type="text"
           className="dollartotalsavings"

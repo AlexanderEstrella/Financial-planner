@@ -41,8 +41,8 @@ body {
 }
 
 .datacontainer {
-    width: 199px;
-    height: 308px;
+    width: fit-content;
+    height: fit-content;
     border-radius: 13px;
     border: 1px solid #474D61;
     background: var(--darkwhite);
@@ -81,4 +81,51 @@ body {
         font-weight: 800;
         line-height: normal;
         padding: 10px;
+}
+
+/* Add button styling */
+.Addbutton {
+    height: 60px;
+    margin: 0 auto;
+    border: none;
+    /* Remove the border */
+    background-color: var(--skyblue);
+    /* Use the --skyblue color */
+    color: var(--white);
+    /* Text color */
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.Addbutton:hover {
+    background-color: #1c48ff;
+    /* Change color on hover */
+    transform: scale(1.05);
+    /* Scale up a bit on hover */
+}
+
+
+.bill-input {
+    display: flex;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+
+.delete-icon {
+    color: #ff0000;
+    /* Red color */
+    font-size: 24px;
+    /* Adjust the icon size */
+    cursor: pointer;
+    /* Add a pointer cursor to indicate it's clickable */
+    margin-right: 8px;
+    /* Add some margin to separate it from other elements */
 }
