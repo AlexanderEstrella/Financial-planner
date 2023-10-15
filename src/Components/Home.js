@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
+
 const Home = () => {
   const [income, setIncome] = useState("");
   const [bills, setBills] = useState([]); // State for bills as an array
@@ -10,6 +11,9 @@ const Home = () => {
   let month = moment().format("MMM Do YY");
 
   const formatCurrency = (value) => {
+    if (typeof value !== "string") {
+      return "";
+    }
     const numericValue = parseFloat(value.replace(/[^0-9.]/g, ""));
     if (isNaN(numericValue)) {
       return "";
@@ -17,11 +21,22 @@ const Home = () => {
     return "$" + numericValue.toLocaleString("en-US");
   };
 
+  const calculateTotalSavings = () => {
+    const sum = bills.reduce((accumulator, currentValue) => {
+      // Remove "$" and commas, parse as a number, and add to accumulator
+      const numericValue = parseFloat(currentValue.replace(/[^0-9.]/g, ""));
+      return numericValue + accumulator;
+    }, 0);
+
+    console.log(sum);
+  };
+
   const handleIncomeChange = (e) => {
     const inputValue = e.target.value;
     setIncome(formatCurrency(inputValue));
   };
 
+  console.log(bills);
   const handleBillChange = (e, index) => {
     const inputValue = e.target.value;
     const updatedBills = [...bills];
@@ -37,11 +52,6 @@ const Home = () => {
 
   const addBill = () => {
     setBills([...bills, ""]); // Add an empty bill input
-  };
-
-  const handleTotalSavingsChange = (e) => {
-    const inputValue = e.target.value;
-    setTotalSavings(formatCurrency(inputValue));
   };
 
   return (
@@ -79,9 +89,11 @@ const Home = () => {
           type="text"
           className="dollartotalsavings"
           value={totalSavings}
-          onChange={handleTotalSavingsChange}
           placeholder="Total Savings"
         />
+        <button className="Calculatebutton" onClick={calculateTotalSavings}>
+          Calculate
+        </button>
       </div>
     </div>
   );

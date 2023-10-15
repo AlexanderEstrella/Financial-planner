@@ -5,8 +5,11 @@
     --skyblue:#2E5CFF;
 }
 body {
+   
 
 }
+
+/* Styling header */
 
 .header {
     background-color: var(--skyblue);
@@ -30,6 +33,7 @@ body {
     line-height: normal;
 }
 
+/* Home */
 
 .Fcontainer {
     background-color: var(--white);
@@ -38,6 +42,7 @@ body {
     display: flex;
     margin: 0 auto;
     margin-top: 20px;
+    
 }
 
 .datacontainer {
@@ -59,6 +64,7 @@ body {
     border-radius: 20px;
     border: 1px solid;
     text-align: center;
+    font-size: 20px;
 }
 
 .Date {
@@ -84,7 +90,7 @@ body {
 }
 
 /* Add button styling */
-.Addbutton {
+.Addbutton, .Calculatebutton {
     height: 60px;
     margin: 0 auto;
     border: none;
@@ -104,7 +110,12 @@ body {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.Addbutton:hover {
+
+.Calculatebutton {
+    margin: 20px;
+}
+
+.Addbutton:hover, .Calculatebutton:hover {
     background-color: #1c48ff;
     /* Change color on hover */
     transform: scale(1.05);
@@ -116,16 +127,17 @@ body {
     display: flex;
     justify-content: center;
     padding-left: 20px;
+    font-size: 20px;
 }
 
 
 .delete-icon {
     color: #ff0000;
-    /* Red color */
+    
     font-size: 24px;
-    /* Adjust the icon size */
+   
     cursor: pointer;
-    /* Add a pointer cursor to indicate it's clickable */
+ 
     margin-right: 8px;
-    /* Add some margin to separate it from other elements */
+   
 }
