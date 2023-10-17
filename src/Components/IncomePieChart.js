@@ -1,6 +1,8 @@
 import React from "react";
 import { Chart, ArcElement } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
 Chart.register(ArcElement);
 
 export const IncomePieChart = ({ totalIncome, totalBills }) => {
@@ -11,21 +13,30 @@ export const IncomePieChart = ({ totalIncome, totalBills }) => {
       {
         data: [totalIncome, totalBills],
         backgroundColor: ["blue", "red"],
-        hoversetoff: 4,
       },
     ],
   };
-  const options = {
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            const labelIndex = context.dataIndex;
-            return (
-              data.labels[labelIndex] +
-              ": $" +
-              data.datasets[0].data[labelIndex].toLocaleString()
-            );
+
+  const config = {
+    type: "pie",
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "Pie Chart",
+        },
+        datalabels: {
+          color: "Black",
+          font: {
+            weight: "bold",
+          },
+          formatter: (value, context) => {
+            return context.chart.data.labels[context.dataIndex];
           },
         },
       },
@@ -34,7 +45,7 @@ export const IncomePieChart = ({ totalIncome, totalBills }) => {
 
   return (
     <div>
-      <Pie data={data} options={{ options }} />
+      <Pie data={data} options={config.options} />
     </div>
   );
 };
