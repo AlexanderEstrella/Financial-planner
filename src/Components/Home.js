@@ -13,6 +13,7 @@ const Home = () => {
 
   let month = moment().format("MMM Do YY");
 
+  //helper function to format input values as a currency
   const formatCurrency = (value) => {
     if (typeof value !== "string") {
       return 0;
@@ -24,7 +25,7 @@ const Home = () => {
     return numericValue;
   };
 
-  // changes as totalsavings gets calcualted
+  // changes as totalsavings gets calculated
   useEffect(() => {
     setProjectSavings(totalSavings * 12);
   }, [totalSavings]);
@@ -54,7 +55,7 @@ const Home = () => {
       setIncome(0);
     }
   };
-
+  // Handle changes in the net income input
   const handleBillChange = (e, index) => {
     const inputValue = e.target.value;
     const numericValue = parseFloat(inputValue.replace(/[^0-9.]/g, ""));
@@ -97,10 +98,12 @@ const Home = () => {
         />
 
         {bills.map((billValue, index) => (
+          //Maps all the bills in the bills array to display to the user.
           <div key={index} className="bill-input">
             <input
               type="text"
               className="dollarbill"
+              // using ? : ternary operators to prevent input from not displaying the placeholder due to some of the usestate functions that set it to 0 at the inital state
               value={billValue === 0 ? "" : "$" + billValue.toLocaleString()}
               onChange={(e) => handleBillChange(e, index)}
               placeholder="Enter Bill"
@@ -118,6 +121,7 @@ const Home = () => {
         <input
           type="text"
           className="dollartotalsavings"
+          // using ? : ternary operators to prevent input from not displaying the placeholder due to some of the usestate functions that set it to 0 at the inital state
           value={totalSavings === 0 ? "" : "$" + totalSavings.toLocaleString()}
           placeholder="Total Savings"
         />
@@ -130,6 +134,7 @@ const Home = () => {
         <input
           className="Totalprojectedsavings"
           type="text"
+          // using ? : ternary operators to prevent input from not displaying the placeholder due to some of the usestate functions that set it to 0 at the inital state
           value={
             projectSavings === 0 ? "" : "$" + projectSavings.toLocaleString()
           }
