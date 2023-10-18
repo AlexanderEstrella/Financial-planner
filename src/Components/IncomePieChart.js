@@ -28,15 +28,15 @@ export const IncomePieChart = ({ totalIncome, totalBills }) => {
         },
         title: {
           display: true,
-          text: "Pie Chart",
+          text: "Chart.js Pie Chart",
         },
         datalabels: {
-          color: "Black",
+          color: "white",
           font: {
             weight: "bold",
           },
           formatter: (value, context) => {
-            return context.chart.data.labels[context.dataIndex];
+            return context.chart.data.labels[context.dataIndex] + ": " + value;
           },
         },
       },

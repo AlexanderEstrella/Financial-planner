@@ -9,6 +9,7 @@ const Home = () => {
   const [bills, setBills] = useState([]);
   const [totalSavings, setTotalSavings] = useState(0);
   const [totalBills, setTotalBills] = useState(0);
+  const [projectSavings, setProjectSavings] = useState(0);
 
   let month = moment().format("MMM Do YY");
 
@@ -23,10 +24,16 @@ const Home = () => {
     return numericValue;
   };
 
+  // changes as totalsavings gets calcualted
+  useEffect(() => {
+    setProjectSavings(totalSavings * 12);
+  }, [totalSavings]);
+
   const calculateTotalSavings = () => {
     const sum = bills.reduce((accumulator, currentValue) => {
       // use array method to seperator string values and add them all together before subtracting from income.
       const numericValue = parseFloat(
+        //string method string was able to get pass react rules.
         currentValue.toString().replace(/^\s+|\s+$/g, "")
       );
       return numericValue + accumulator;
@@ -40,16 +47,30 @@ const Home = () => {
   const handleIncomeChange = (e) => {
     const inputValue = e.target.value;
     const numericValue = parseFloat(inputValue.replace(/[^0-9.]/g, ""));
-    setIncome(numericValue);
+    if (!isNaN(numericValue)) {
+      setIncome(numericValue);
+    } else {
+      // Handle invalid input, for example, set it to zero:
+      setIncome(0);
+    }
   };
 
   const handleBillChange = (e, index) => {
     const inputValue = e.target.value;
-    const updatedBills = [...bills];
-    updatedBills[index] = formatCurrency(inputValue);
-    console.log(updatedBills);
-    setBills(updatedBills);
+    const numericValue = parseFloat(inputValue.replace(/[^0-9.]/g, ""));
+    if (!isNaN(numericValue)) {
+      const updatedBills = [...bills];
+      updatedBills[index] = numericValue;
+      setBills(updatedBills);
+    } else {
+      // Handle invalid input, for example, set it to zero:
+      const updatedBills = [...bills];
+      updatedBills[index] = 0;
+      setBills(updatedBills);
+    }
   };
+
+  // deletes bill that gets clicked on based on its index using splice method
 
   const handleDeleteBill = (index) => {
     const updatedBills = [...bills];
@@ -57,6 +78,7 @@ const Home = () => {
     setBills(updatedBills);
   };
 
+  // adds bill to existing empty array declared in use state initial
   const addBill = () => {
     setBills([...bills, 0]);
   };
@@ -103,8 +125,17 @@ const Home = () => {
           Calculate
         </button>
       </div>
-
-      <IncomePieChart totalIncome={income} totalBills={totalBills} />
+      <div className="PiechartDiv">
+        <IncomePieChart totalIncome={income} totalBills={totalBills} />
+        <input
+          className="Totalprojectedsavings"
+          type="text"
+          value={
+            projectSavings === 0 ? "" : "$" + projectSavings.toLocaleString()
+          }
+          placeholder="Projected 12-Month savings"
+        />
+      </div>
     </div>
   );
 };
