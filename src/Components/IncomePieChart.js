@@ -17,6 +17,7 @@ export const IncomePieChart = ({ totalIncome, totalBills }) => {
     ],
   };
 
+  // sets options for chart.js labels
   const config = {
     type: "pie",
     data: data,
