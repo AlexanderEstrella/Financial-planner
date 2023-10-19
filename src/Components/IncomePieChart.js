@@ -1,7 +1,6 @@
 import React from "react";
 import { Chart, ArcElement } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 
 Chart.register(ArcElement);
 
